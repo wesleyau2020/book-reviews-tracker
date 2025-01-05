@@ -2,7 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.model.Review;
 
-import java.util.List;
+// import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    List<Review> findByBookId(Long bookId);
+    Review findByBookId(Long bookId);
 }

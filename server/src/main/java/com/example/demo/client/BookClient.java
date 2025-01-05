@@ -1,7 +1,12 @@
 package com.example.demo.client;
 
 import com.example.demo.model.Book;
+import com.example.demo.model.Category;
 import com.example.demo.service.BookService;
+import com.example.demo.service.CategoryService;
+
+import java.util.Optional;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -9,28 +14,51 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookClient {
 
+    private final BookService bookService;
+    private final CategoryService categoryService;
+
+    public BookClient(BookService bookService, CategoryService categoryService) {
+        this.bookService = bookService;
+        this.categoryService = categoryService;
+    }
+
     @Bean
-    CommandLineRunner initDatabase(BookService bookService) {
+    CommandLineRunner initDatabase() {
         return args -> {
             if (!bookService.getAllBooks().isEmpty()) {
                 System.out.println("Database already contains books, skipping mock data insertion.");
                 return;
             }
 
+            Optional<Category> cOptional = categoryService.getCategoryById(2L);
+
+            if (cOptional.isEmpty()) {
+                System.out.println("Category with ID 2 not found. Skipping book creation.");
+                return;
+            }
+
+            Category nonfictionCategory = cOptional.get();
+
             // Mock Book 1
             Book mockBook1 = new Book();
             mockBook1.setTitle("Effective Java");
             mockBook1.setAuthor("Joshua Bloch");
+            mockBook1.setProgress(0.1);
+            mockBook1.setCategory(nonfictionCategory);
 
             // Mock Book 2
             Book mockBook2 = new Book();
             mockBook2.setTitle("Clean Code");
             mockBook2.setAuthor("Robert C. Martin");
+            mockBook2.setProgress(0.4);
+            mockBook2.setCategory(nonfictionCategory);
 
             // Mock Book 3
             Book mockBook3 = new Book();
             mockBook3.setTitle("Java: The Complete Reference");
             mockBook3.setAuthor("Herbert Schildt");
+            mockBook3.setProgress(0.7);
+            mockBook3.setCategory(nonfictionCategory);
 
             // Save the books using the BookService
             bookService.saveBook(mockBook1);

@@ -8,12 +8,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/api/reviews")
-@CrossOrigin(origins = "http://localhost:3000")
+
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;
+
+    private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
     @GetMapping
     public List<Review> getAllReviews() {
@@ -30,15 +35,22 @@ public class ReviewController {
     @PostMapping
     public ResponseEntity<Review> createReview(@RequestBody Review review) {
         try {
-            // Make sure review has a valid book
+            logger.info("Received request to create review: {}", review);
+            logger.info("Book from review: {}", review.getBook());
+
+            // Validate the review
             if (review.getBook() == null || review.getBook().getId() == null) {
+                logger.warn("Invalid review payload: Missing book information.");
                 return ResponseEntity.badRequest().build();
             }
 
             // Save the review
             Review savedReview = reviewService.saveReview(review);
+            logger.info("Review successfully saved: {}", savedReview);
             return ResponseEntity.ok(savedReview);
+
         } catch (Exception e) {
+            logger.error("Error occurred while creating review", e);
             return ResponseEntity.badRequest().build();
         }
     }

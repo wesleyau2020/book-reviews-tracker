@@ -14,5 +14,5 @@ public interface ReviewService {
 
     void deleteReview(Long id);
 
-    List<Review> getReviewsByBookId(Long bookId);
+    Review getReviewByBookId(Long bookId);
 }

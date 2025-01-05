@@ -1,6 +1,10 @@
 package com.example.demo.model;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+// import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 
@@ -16,8 +20,21 @@ public class Book {
     @Column(nullable = false)
     private String author;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews;
+    @Column(nullable = false)
+    private double progress;
+
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Review review;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    @JsonBackReference
+    private Category category;
+
+    // No-argument constructor
+    public Book() {
+    }
 
     // Getters and Setters
 
@@ -45,11 +62,27 @@ public class Book {
         this.author = author;
     }
 
-    public List<Review> getReviews() {
-        return reviews;
+    public double getProgress() {
+        return progress;
     }
 
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
+    public void setProgress(double progress) {
+        this.progress = progress;
+    }
+
+    public Review getReviews() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

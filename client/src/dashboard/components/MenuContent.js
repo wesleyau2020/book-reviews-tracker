@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -10,7 +9,7 @@ import Stack from "@mui/material/Stack";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import AnalyticsRoundedIcon from "@mui/icons-material/AnalyticsRounded";
 import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
-import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import HelpRoundedIcon from "@mui/icons-material/HelpRounded";
@@ -21,7 +20,7 @@ const mainListItems = [
   { text: "Home", icon: <HomeRoundedIcon />, link: "/home" },
   { text: "Analytics", icon: <AnalyticsRoundedIcon />, link: "/analytics" },
   { text: "Clients", icon: <PeopleRoundedIcon />, link: "/clients" },
-  { text: "Books", icon: <AssignmentRoundedIcon />, link: "/books" },
+  { text: "Books", icon: <LibraryBooksIcon />, link: "/books" },
 ];
 
 const secondaryListItems = [

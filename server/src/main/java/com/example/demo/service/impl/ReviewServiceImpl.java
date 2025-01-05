@@ -1,7 +1,9 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
 import com.example.demo.model.Review;
 import com.example.demo.repository.ReviewRepository;
+import com.example.demo.service.ReviewService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> getReviewsByBookId(Long bookId) {
+    public Review getReviewByBookId(Long bookId) {
         return reviewRepository.findByBookId(bookId);
     }
 
