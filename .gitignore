@@ -7,3 +7,4 @@
 # scripts
 start_client.bat
 start_server.bat
+/server/logs
