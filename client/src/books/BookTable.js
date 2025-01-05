@@ -44,7 +44,7 @@ const BookTable = ({ books, onViewReview, onAddReview }) => {
               key={book.id}
               sx={{
                 backgroundColor:
-                  index % 2 === 0 ? "rgba(0, 0, 0, 0.05)" : "white",
+                  index % 2 === 0 ? "rgba(0, 0, 0, 0.05)" : "rgba(245, 240, 240, 0.05)",
               }}
             >
               <TableCell sx={{ border: "1px solid black" }}>
