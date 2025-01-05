@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.*;
 
@@ -16,9 +16,9 @@ public class Review {
     @Column(nullable = false)
     private String reviewerName;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "book_id")
-    @JsonIgnore
+    @JsonBackReference
     private Book book;
 
     // Getters and Setters
@@ -53,5 +53,15 @@ public class Review {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", reviewerName='" + reviewerName + '\'' +
+                ", bookId=" + (book != null ? book.getId() : "null") +
+                '}';
     }
 }

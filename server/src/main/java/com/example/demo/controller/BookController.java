@@ -32,13 +32,13 @@ public class BookController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/{bookId}/reviews")
-    public ResponseEntity<List<Review>> getReviewsByBookId(@PathVariable Long bookId) {
-        List<Review> reviews = reviewService.getReviewsByBookId(bookId);
-        if (reviews.isEmpty()) {
+    @GetMapping("/{bookId}/review")
+    public ResponseEntity<Review> getReviewByBookId(@PathVariable Long bookId) {
+        Review review = reviewService.getReviewByBookId(bookId);
+        if (review == null) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(reviews);
+        return ResponseEntity.ok(review);
     }
 
     @PostMapping
