@@ -58,8 +58,8 @@ const BooksCompletedChart = () => {
       },
     },
     legend: {
-      data: Object.keys(chartData.series),
-    },
+      data: chartData.series.map(s => s.name),
+    },    
     xAxis: {
       type: "category",
       data: chartData.months,
