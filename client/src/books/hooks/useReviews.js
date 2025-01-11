@@ -5,21 +5,6 @@ export const useReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
 
-  const fetchReview = (bookId) => {
-    axios
-      .get(`http://localhost:8080/api/reviews/${bookId}`)
-      .then((response) => {
-        console.log("Fetched reviews:", response.data);
-        setReviews(response.data);
-      })
-      .catch((error) => {
-        setError(
-          "Error fetching reviews: " +
-            (error.response ? error.response.data : error.message),
-        );
-      });
-  };
-
   const addReview = (bookId, newReview) => {
     const reviewData = {
       content: newReview,
@@ -31,7 +16,9 @@ export const useReviews = () => {
       .post(`http://localhost:8080/api/reviews`, reviewData, {
         headers: { "Content-Type": "application/json" },
       })
-      .then(() => fetchReview(bookId))
+      .then((response) => {
+        console.log(response);
+      })
       .catch((error) => {
         setError(
           "Error adding review: " +
@@ -51,7 +38,9 @@ export const useReviews = () => {
       .put(`http://localhost:8080/api/reviews/${reviewId}`, reviewData, {
         headers: { "Content-Type": "application/json" },
       })
-      .then(() => fetchReview(bookId))
+      .then((response) => {
+        console.log(response);
+      })
       .catch((error) => {
         setError(
           "Error updating review: " +
@@ -60,5 +49,5 @@ export const useReviews = () => {
       });
   };
 
-  return { reviews, error, fetchReview, addReview, updateReview };
+  return { reviews, error, addReview, updateReview };
 };

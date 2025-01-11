@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 // import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -24,6 +26,11 @@ public class Book {
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Review review;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    @JsonBackReference
+    private Category category;
 
     // No-argument constructor
     public Book() {
@@ -69,5 +76,13 @@ public class Book {
 
     public void setReview(Review review) {
         this.review = review;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
