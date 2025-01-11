@@ -14,6 +14,10 @@ export const useReviews = () => {
 
     axios
       .post(`http://localhost:8080/api/reviews`, reviewData, {
+        auth: {
+          username: "admin@local.com",
+          password: "password",
+        },
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
@@ -36,7 +40,13 @@ export const useReviews = () => {
 
     axios
       .put(`http://localhost:8080/api/reviews/${reviewId}`, reviewData, {
-        headers: { "Content-Type": "application/json" },
+        auth: {
+          username: "admin@local.com",
+          password: "password",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
       .then((response) => {
         console.log(response);

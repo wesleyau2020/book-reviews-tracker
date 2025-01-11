@@ -32,7 +32,12 @@ export default function Books(props) {
   // Fetch books when the component mounts
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/books")
+      .get("http://localhost:8080/api/books", {
+        auth: {
+          username: "admin@local.com",
+          password: "password",
+        },
+      })
       .then((response) => {
         setBooks(response.data);
         setLoading(false);
