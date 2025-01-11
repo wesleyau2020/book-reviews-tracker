@@ -46,12 +46,12 @@ export const useReviews = () => {
       reviewerName: "Wesley Au",
       book: { id: bookId },
     };
-  
+
     axios
       .put(`http://localhost:8080/api/reviews/${reviewId}`, reviewData, {
         headers: { "Content-Type": "application/json" },
       })
-      .then(() => fetchReview(bookId)) 
+      .then(() => fetchReview(bookId))
       .catch((error) => {
         setError(
           "Error updating review: " +
@@ -59,7 +59,6 @@ export const useReviews = () => {
         );
       });
   };
-  
 
   return { reviews, error, fetchReview, addReview, updateReview };
 };

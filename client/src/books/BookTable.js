@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from "@mui/material";
 
-const BookTable = ({ books, onViewReview, onAddReview }) => {
+const BookTable = ({ books, onAddReview }) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650, borderCollapse: "collapse" }}>
@@ -39,58 +39,64 @@ const BookTable = ({ books, onViewReview, onAddReview }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {books.map((book, index) => (
-            <TableRow
-              key={book.id}
-              sx={{
-                backgroundColor:
-                  index % 2 === 0 ? "rgba(0, 0, 0, 0.05)" : "rgba(245, 240, 240, 0.05)",
-              }}
-            >
-              <TableCell sx={{ border: "1px solid black" }}>
-                {book.id}
-              </TableCell>
-              <TableCell sx={{ border: "1px solid black" }}>
-                {book.title}
-              </TableCell>
-              <TableCell sx={{ border: "1px solid black" }}>
-                {book.author}
-              </TableCell>
-              <TableCell sx={{ border: "1px solid black" }}>
-                <Tooltip title={`${Math.min(100, Math.max(0, book.progress * 100))}%`} arrow>
+          {books.map((book, index) => {
+            // Calculate the progress percentage here, outside of JSX
+            const progressPercentage = Math.min(
+              100,
+              Math.max(0, book.progress * 100),
+            );
+
+            return (
+              <TableRow
+                key={book.id}
+                sx={{
+                  backgroundColor:
+                    index % 2 === 0
+                      ? "rgba(0, 0, 0, 0.05)"
+                      : "rgba(245, 240, 240, 0.05)",
+                }}
+              >
+                <TableCell sx={{ border: "1px solid black" }}>
+                  {book.id}
+                </TableCell>
+                <TableCell sx={{ border: "1px solid black" }}>
+                  {book.title}
+                </TableCell>
+                <TableCell sx={{ border: "1px solid black" }}>
+                  {book.author}
+                </TableCell>
+                <TableCell sx={{ border: "1px solid black" }}>
+                  <Tooltip title={`${progressPercentage}%`} arrow>
                     <LinearProgress
                       variant="determinate"
-                      value={Math.min(100, Math.max(0, book.progress * 100))}
+                      value={progressPercentage}
                       sx={{ width: "100%" }}
                     />
-                </Tooltip>
-              </TableCell>
-              <TableCell sx={{ border: "1px solid black" }}>
-                {book.review && book.review.content ? book.review.content : "No review available"}
-              </TableCell>
-              <TableCell sx={{ border: "1px solid black" }}>
-                {/* <Button
-                  variant="contained"
-                  onClick={() => onViewReview(book.id)}
-                >
-                  View Review
-                </Button> */}
-                <Button
-                  variant="contained"
-                  sx={{ ml: 1 }}
-                  onClick={() => {
-                    if (book.review) {
-                      onAddReview(book, true);
-                    } else {
-                      onAddReview(book, false); 
-                    }
-                  }}
-                >
-                  {book.review ? "Update Review" : "Add Review"}
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+                  </Tooltip>
+                </TableCell>
+                <TableCell sx={{ border: "1px solid black" }}>
+                  {book.review && book.review.content
+                    ? book.review.content
+                    : "No review available"}
+                </TableCell>
+                <TableCell sx={{ border: "1px solid black" }}>
+                  <Button
+                    variant="contained"
+                    sx={{ ml: 1 }}
+                    onClick={() => {
+                      if (book.review) {
+                        onAddReview(book, true);
+                      } else {
+                        onAddReview(book, false);
+                      }
+                    }}
+                  >
+                    {book.review ? "Update Review" : "Add Review"}
+                  </Button>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>
