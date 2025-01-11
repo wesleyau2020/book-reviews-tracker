@@ -19,6 +19,7 @@ public class SecurityConfig {
         this.customUserDetailsService = customUserDetailsService;
     }
 
+    @SuppressWarnings("removal")
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
