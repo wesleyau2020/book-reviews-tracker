@@ -15,7 +15,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/statistics")
-@CrossOrigin(origins = "http://localhost:3000")
+
 public class StatisticsController {
 
     private final BookService bookService;

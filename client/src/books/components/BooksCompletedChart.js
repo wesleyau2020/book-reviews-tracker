@@ -8,7 +8,12 @@ const BooksCompletedChart = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/statistics/books-completed")
+      .get("http://localhost:8080/api/statistics/books-completed", {
+        auth: {
+          username: "admin@local.com",
+          password: "password",
+        },
+      })
       .then((response) => {
         const data = response.data;
         const categories = Object.keys(data);

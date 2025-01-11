@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/completion-dates")
-@CrossOrigin(origins = "http://localhost:3000")
+
 public class CompletionDateController {
 
     private final CompletionDateService completionDateService;
