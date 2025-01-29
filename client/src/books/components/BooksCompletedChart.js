@@ -7,11 +7,12 @@ const BooksCompletedChart = () => {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
     axios
       .get("http://localhost:8080/api/statistics/books-completed", {
-        auth: {
-          username: "admin@local.com",
-          password: "password",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       })
       .then((response) => {
@@ -44,7 +45,7 @@ const BooksCompletedChart = () => {
       });
   }, []);
 
-  if (!chartData) return <div>Loading...</div>;
+  if (!chartData) return <div>Loading chart...</div>;
 
   const option = {
     title: {
