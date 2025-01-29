@@ -7,7 +7,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+
 import com.example.demo.model.AuthRequest;
+import com.example.demo.model.AuthResponse;
 
 @RestController
 @RequestMapping("/auth")
@@ -33,17 +35,5 @@ public class AuthController {
         String token = jwtUtil.generateToken(userDetails.getUsername());
 
         return ResponseEntity.ok(new AuthResponse(token));
-    }
-}
-
-class AuthResponse {
-    private String token;
-
-    public AuthResponse(String token) {
-        this.token = token;
-    }
-
-    public String getToken() {
-        return token;
     }
 }
