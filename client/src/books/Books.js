@@ -82,7 +82,7 @@ export default function Books(props) {
                 <BooksCompletedChart sx={{ height: "100%", width: "100%" }} />
               </CardContent>
             </Card>
-            <Card variant="outlined" sx={{ width: "100%", padding: "0" }}>
+            <Card variant="outlined" sx={{ width: "100%", padding: (loading || error) ? "5" : "0" }}>
               <CardContent>
                 {(loading || error) && (
                   <Typography variant="body1">Loading table...</Typography>
