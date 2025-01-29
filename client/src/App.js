@@ -5,10 +5,12 @@ import Dashboard from "./dashboard/Dashboard";
 import Analytics from "./analytics/Analytics";
 import Clients from "./clients/Clients";
 import Books from "./books/Books";
+import SignInPage from "./sign-in/SignIn";
 
 function App() {
   return (
     <Routes>
+      <Route path="/signin" element={<SignInPage />} />
       <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/home" element={<Dashboard />} />
       <Route path="/analytics" element={<Analytics />} />

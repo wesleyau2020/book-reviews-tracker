@@ -31,11 +31,12 @@ export default function Books(props) {
 
   // Fetch books when the component mounts
   useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
     axios
       .get("http://localhost:8080/api/books", {
-        auth: {
-          username: "admin@local.com",
-          password: "password",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       })
       .then((response) => {
@@ -45,6 +46,7 @@ export default function Books(props) {
       .catch((error) => {
         setLoading(false);
         setError(error.message);
+        console.log(error.message);
       });
   }, []);
 
@@ -80,20 +82,16 @@ export default function Books(props) {
                 <BooksCompletedChart sx={{ height: "100%", width: "100%" }} />
               </CardContent>
             </Card>
-            {loading && <Typography variant="h6">Loading books...</Typography>}
-            {error && (
-              <Typography
-                variant="h6"
-                color="error"
-              >{`Error: ${error}`}</Typography>
-            )}
-            {!loading && !error && (
-              // <Card variant="outlined" sx={{ width: "100%" }}>
-              //   <CardContent>
-              <BookTable books={books} onAddReview={handleAddReview} />
-              //   </CardContent>
-              // </Card>
-            )}
+            <Card variant="outlined" sx={{ width: "100%", padding: "0" }}>
+              <CardContent>
+                {(loading || error) && (
+                  <Typography variant="body1">Loading table...</Typography>
+                )}
+                {!loading && !error && (
+                  <BookTable books={books} onAddReview={handleAddReview} />
+                )}
+              </CardContent>
+            </Card>
           </Stack>
         </Box>
       </Box>

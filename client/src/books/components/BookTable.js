@@ -10,11 +10,11 @@ const BookTable = ({ books, onAddReview }) => {
   const columns = [
     { field: "id", headerName: "ID", width: 50 },
     { field: "title", headerName: "Title", width: 250 },
-    { field: "author", headerName: "Author", width: 150 },
+    { field: "author", headerName: "Author", width: 200 },
     {
       field: "progress",
       headerName: "Progress",
-      width: 150,
+      width: 200,
       renderCell: (params) => {
         const progressPercentage = Math.min(
           100,
@@ -43,7 +43,7 @@ const BookTable = ({ books, onAddReview }) => {
     {
       field: "review",
       headerName: "Review",
-      width: 200,
+      width: 250,
       renderCell: (params) =>
         params.value && params.value.content
           ? params.value.content
@@ -86,7 +86,7 @@ const BookTable = ({ books, onAddReview }) => {
   }));
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 375, width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -101,13 +101,14 @@ const BookTable = ({ books, onAddReview }) => {
           pagination: { paginationModel: { pageSize: 5 } },
         }}
         sx={{
-          border: 1,
-          borderColor: "#ECECEC",
-          "& .MuiDataGrid-columnHeader": {
-            backgroundColor: "#F0F8FF",
-          },
-          "& .MuiDataGrid-filler": {
-            backgroundColor: "#F0F8FF",
+          // "& .MuiDataGrid-columnHeader": {
+          //   backgroundColor: "#F5F5F5",
+          // },
+          // "& .MuiDataGrid-filler": {
+          //   backgroundColor: "#F5F5F5",
+          // },
+          "& .MuiTablePagination-displayedRows": {
+            marginBottom: 0,
           },
         }}
       />
