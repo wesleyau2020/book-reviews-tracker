@@ -8,9 +8,9 @@ const BookTable = ({ books, onAddReview }) => {
 
   // Columns
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 50 },
     { field: "title", headerName: "Title", width: 250 },
-    { field: "author", headerName: "Author", width: 200 },
+    { field: "author", headerName: "Author", width: 150 },
     {
       field: "progress",
       headerName: "Progress",
@@ -43,7 +43,7 @@ const BookTable = ({ books, onAddReview }) => {
     {
       field: "review",
       headerName: "Review",
-      width: 150,
+      width: 200,
       renderCell: (params) =>
         params.value && params.value.content
           ? params.value.content
@@ -101,13 +101,13 @@ const BookTable = ({ books, onAddReview }) => {
           pagination: { paginationModel: { pageSize: 5 } },
         }}
         sx={{
-          ".MuiDataGrid-columnHeaders": {
-            backgroundColor: (theme) =>
-              `${theme.palette.primary.main} !important`,
+          border: 1,
+          borderColor: '#ECECEC',
+          "& .MuiDataGrid-columnHeader": {
+            backgroundColor: '#F0F8FF'
           },
-
-          ".MuiTablePagination-displayedRows": {
-            display: "none",
+          "& .MuiDataGrid-filler": {
+            backgroundColor: '#F0F8FF'
           },
         }}
       />
