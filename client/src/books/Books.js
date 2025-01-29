@@ -7,6 +7,7 @@ import {
   CssBaseline,
   Card,
   CardContent,
+  Alert,
 } from "@mui/material";
 
 // Components
@@ -31,11 +32,12 @@ export default function Books(props) {
 
   // Fetch books when the component mounts
   useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
     axios
       .get("http://localhost:8080/api/books", {
-        auth: {
-          username: "admin@local.com",
-          password: "password",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       })
       .then((response) => {
@@ -45,6 +47,7 @@ export default function Books(props) {
       .catch((error) => {
         setLoading(false);
         setError(error.message);
+        console.log(error.message);
       });
   }, []);
 
@@ -75,25 +78,27 @@ export default function Books(props) {
         <Box component="main" sx={{ flexGrow: 1, overflow: "auto" }}>
           <Stack spacing={2} sx={{ mx: 3, pb: 5, mt: { xs: 8, md: 0 } }}>
             <Header />
+            <Alert severity="error">
+              You Have Not Acheived Your Reading Goals!
+            </Alert>
             <Card variant="outlined" sx={{ width: "100%" }}>
               <CardContent>
                 <BooksCompletedChart sx={{ height: "100%", width: "100%" }} />
               </CardContent>
             </Card>
-            {loading && <Typography variant="h6">Loading books...</Typography>}
-            {error && (
-              <Typography
-                variant="h6"
-                color="error"
-              >{`Error: ${error}`}</Typography>
-            )}
-            {!loading && !error && (
-              // <Card variant="outlined" sx={{ width: "100%" }}>
-              //   <CardContent>
+            <Card
+              variant="outlined"
+              sx={{ width: "100%", padding: loading || error ? 2 : 0 }}
+            >
+              <CardContent>
+                {(loading || error) && (
+                  <Typography variant="body1">Loading table...</Typography>
+                )}
+                {!loading && !error && (
                   <BookTable books={books} onAddReview={handleAddReview} />
-              //   </CardContent>
-              // </Card>
-            )}
+                )}
+              </CardContent>
+            </Card>
           </Stack>
         </Box>
       </Box>

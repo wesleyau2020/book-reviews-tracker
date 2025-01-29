@@ -57,6 +57,16 @@ public class BookController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PutMapping("/{id}/progress")
+    public ResponseEntity<Book> updateBookProgress(@PathVariable Long id, @RequestBody int newProgress) {
+        return bookService.getBookById(id)
+                .map(existingBook -> {
+                    existingBook.setProgress(newProgress);
+                    return ResponseEntity.ok(bookService.saveBook(existingBook));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         if (bookService.getBookById(id).isPresent()) {

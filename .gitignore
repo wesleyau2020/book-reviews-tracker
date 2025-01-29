@@ -9,3 +9,4 @@
 start_client.bat
 start_server.bat
 /server/logs
+server/src/main/resources/application.properties

@@ -6,6 +6,8 @@ export const useReviews = () => {
   const [error, setError] = useState(null);
 
   const addReview = (bookId, newReview) => {
+    const token = localStorage.getItem("jwtToken");
+
     const reviewData = {
       content: newReview,
       reviewerName: "Wesley Au",
@@ -14,11 +16,10 @@ export const useReviews = () => {
 
     axios
       .post(`http://localhost:8080/api/reviews`, reviewData, {
-        auth: {
-          username: "admin@local.com",
-          password: "password",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-        headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
         console.log(response);
@@ -32,6 +33,8 @@ export const useReviews = () => {
   };
 
   const updateReview = (bookId, updatedReview, reviewId) => {
+    const token = localStorage.getItem("jwtToken");
+
     const reviewData = {
       content: updatedReview,
       reviewerName: "Wesley Au",
@@ -40,11 +43,8 @@ export const useReviews = () => {
 
     axios
       .put(`http://localhost:8080/api/reviews/${reviewId}`, reviewData, {
-        auth: {
-          username: "admin@local.com",
-          password: "password",
-        },
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       })

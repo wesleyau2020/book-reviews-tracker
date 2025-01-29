@@ -9,6 +9,15 @@ const theme = createTheme({
       main: "#F5F5F5",
     },
   },
+  components: {
+    MuiDataGrid: {
+      styleOverrides: {
+        root: {
+          "--DataGrid-containerBackground": "rgb(69,153,236)",
+        },
+      },
+    },
+  },
 });
 
 export default theme;

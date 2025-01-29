@@ -4,8 +4,9 @@ A full-stack application built with React (frontend) and Spring (backend) to man
 
 ## Screenshots
 
-![Screenshot 1](screenshots/books-light.png)
-![Screenshot 1](screenshots/add-review.png)
+![Screenshot 1](screenshots/signin.png)
+![Screenshot 2](screenshots/books-light.png)
+![Screenshot 3](screenshots/update-review.png)
 
 ## Future Enhancements
 
