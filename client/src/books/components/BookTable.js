@@ -102,12 +102,12 @@ const BookTable = ({ books, onAddReview }) => {
         }}
         sx={{
           border: 1,
-          borderColor: '#ECECEC',
+          borderColor: "#ECECEC",
           "& .MuiDataGrid-columnHeader": {
-            backgroundColor: '#F0F8FF'
+            backgroundColor: "#F0F8FF",
           },
           "& .MuiDataGrid-filler": {
-            backgroundColor: '#F0F8FF'
+            backgroundColor: "#F0F8FF",
           },
         }}
       />

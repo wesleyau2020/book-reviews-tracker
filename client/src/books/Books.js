@@ -90,7 +90,7 @@ export default function Books(props) {
             {!loading && !error && (
               // <Card variant="outlined" sx={{ width: "100%" }}>
               //   <CardContent>
-                  <BookTable books={books} onAddReview={handleAddReview} />
+              <BookTable books={books} onAddReview={handleAddReview} />
               //   </CardContent>
               // </Card>
             )}
