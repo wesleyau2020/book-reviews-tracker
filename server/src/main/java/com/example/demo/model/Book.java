@@ -21,7 +21,7 @@ public class Book {
     private String author;
 
     @Column(nullable = false)
-    private double progress;
+    private int progress;
 
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
@@ -62,15 +62,15 @@ public class Book {
         this.author = author;
     }
 
-    public double getProgress() {
+    public int getProgress() {
         return progress;
     }
 
-    public void setProgress(double progress) {
+    public void setProgress(int progress) {
         this.progress = progress;
     }
 
-    public Review getReviews() {
+    public Review getReview() {
         return review;
     }
 

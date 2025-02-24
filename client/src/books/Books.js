@@ -7,6 +7,7 @@ import {
   CssBaseline,
   Card,
   CardContent,
+  Alert,
 } from "@mui/material";
 
 // Components
@@ -77,12 +78,18 @@ export default function Books(props) {
         <Box component="main" sx={{ flexGrow: 1, overflow: "auto" }}>
           <Stack spacing={2} sx={{ mx: 3, pb: 5, mt: { xs: 8, md: 0 } }}>
             <Header />
+            <Alert severity="error">
+              You Have Not Acheived Your Reading Goals!
+            </Alert>
             <Card variant="outlined" sx={{ width: "100%" }}>
               <CardContent>
                 <BooksCompletedChart sx={{ height: "100%", width: "100%" }} />
               </CardContent>
             </Card>
-            <Card variant="outlined" sx={{ width: "100%", padding: (loading || error) ? "5" : "0" }}>
+            <Card
+              variant="outlined"
+              sx={{ width: "100%", padding: loading || error ? 2 : 0 }}
+            >
               <CardContent>
                 {(loading || error) && (
                   <Typography variant="body1">Loading table...</Typography>

@@ -43,21 +43,21 @@ public class BookClient {
             Book mockBook1 = new Book();
             mockBook1.setTitle("Effective Java");
             mockBook1.setAuthor("Joshua Bloch");
-            mockBook1.setProgress(0.1);
+            mockBook1.setProgress(10);
             mockBook1.setCategory(nonfictionCategory);
 
             // Mock Book 2
             Book mockBook2 = new Book();
             mockBook2.setTitle("Clean Code");
             mockBook2.setAuthor("Robert C. Martin");
-            mockBook2.setProgress(0.4);
+            mockBook2.setProgress(40);
             mockBook2.setCategory(nonfictionCategory);
 
             // Mock Book 3
             Book mockBook3 = new Book();
             mockBook3.setTitle("Java: The Complete Reference");
             mockBook3.setAuthor("Herbert Schildt");
-            mockBook3.setProgress(0.7);
+            mockBook3.setProgress(70);
             mockBook3.setCategory(nonfictionCategory);
 
             // Save the books using the BookService
