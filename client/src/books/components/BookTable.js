@@ -1,49 +1,37 @@
-import * as React from "react";
+import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, LinearProgress, Tooltip } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Button, useTheme } from "@mui/material";
+import ProgressCell from "./ProgressCell";
 
 const BookTable = ({ books, onAddReview }) => {
   const theme = useTheme();
+  const [bookData, setBookData] = useState(books);
+
+  const handleUpdateProgress = (id, newValue) => {
+    setBookData((prevBooks) =>
+      prevBooks.map((book) =>
+        book.id === id ? { ...book, progress: newValue } : book,
+      ),
+    );
+  };
 
   // Columns
   const columns = [
     { field: "id", headerName: "ID", width: 50 },
     { field: "title", headerName: "Title", width: 250 },
-    { field: "author", headerName: "Author", width: 200 },
+    { field: "author", headerName: "Author", width: 150 },
     {
       field: "progress",
       headerName: "Progress",
       width: 200,
-      renderCell: (params) => {
-        const progressPercentage = Math.min(
-          100,
-          Math.max(0, params.value * 100),
-        );
-        return (
-          <Tooltip title={`${progressPercentage}%`} arrow>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-              }}
-            >
-              <LinearProgress
-                variant="determinate"
-                value={progressPercentage}
-                sx={{ width: "100%" }}
-              />
-            </div>
-          </Tooltip>
-        );
-      },
+      renderCell: (params) => (
+        <ProgressCell params={params} onUpdate={handleUpdateProgress} />
+      ),
     },
     {
       field: "review",
       headerName: "Review",
-      width: 250,
+      width: 150,
       renderCell: (params) =>
         params.value && params.value.content
           ? params.value.content
@@ -61,13 +49,7 @@ const BookTable = ({ books, onAddReview }) => {
             variant="contained"
             size="small"
             sx={{ ml: 1 }}
-            onClick={() => {
-              if (book.review) {
-                onAddReview(book, true);
-              } else {
-                onAddReview(book, false);
-              }
-            }}
+            onClick={() => onAddReview(book, Boolean(book.review))}
           >
             {book.review ? "Update Review" : "Add Review"}
           </Button>
@@ -76,19 +58,10 @@ const BookTable = ({ books, onAddReview }) => {
     },
   ];
 
-  // Rows
-  const rows = books.map((book, index) => ({
-    id: book.id,
-    title: book.title,
-    author: book.author,
-    progress: book.progress,
-    review: book.review,
-  }));
-
   return (
-    <div style={{ height: 375, width: "100%" }}>
+    <div>
       <DataGrid
-        rows={rows}
+        rows={bookData}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5, 10, 20]}
@@ -101,12 +74,6 @@ const BookTable = ({ books, onAddReview }) => {
           pagination: { paginationModel: { pageSize: 5 } },
         }}
         sx={{
-          // "& .MuiDataGrid-columnHeader": {
-          //   backgroundColor: "#F5F5F5",
-          // },
-          // "& .MuiDataGrid-filler": {
-          //   backgroundColor: "#F5F5F5",
-          // },
           "& .MuiTablePagination-displayedRows": {
             marginBottom: 0,
           },
