@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Tooltip, LinearProgress } from "@mui/material";
+import { LinearProgress, Tooltip } from "@mui/material";
 import ProgressModal from "./ProgressModal";
 
 const ProgressCell = ({ params, onUpdate }) => {
@@ -9,17 +9,22 @@ const ProgressCell = ({ params, onUpdate }) => {
     <>
       <Tooltip title={`${params.value}%`} arrow>
         <div
-          onDoubleClick={() => setOpen(true)}
+          // Enable double-click if value is less than 100%
+          onDoubleClick={params.value !== 100 ? () => setOpen(true) : null}
           style={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             height: "100%",
-            cursor: "pointer",
+            cursor: params.value === 100 ? "not-allowed" : "pointer",
             width: "100%",
           }}
         >
-          <LinearProgress variant="determinate" value={params.value} sx={{ width: "100%" }} />
+          <LinearProgress
+            variant="determinate"
+            value={params.value}
+            sx={{ width: "100%" }}
+          />
         </div>
       </Tooltip>
 
@@ -29,7 +34,7 @@ const ProgressCell = ({ params, onUpdate }) => {
         onClose={() => setOpen(false)}
         bookId={params.id}
         currentProgress={params.value}
-        onProgressUpdate={onUpdate} // Pass update function
+        onProgressUpdate={onUpdate}
       />
     </>
   );

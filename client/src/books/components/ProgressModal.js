@@ -1,38 +1,27 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import { Box, Button, Modal, Slider, Typography } from "@mui/material";
+import useProgress from "../hooks/useProgress";
 
-const ProgressModal = ({ open, onClose, bookId, currentProgress, onProgressUpdate }) => {
+const ProgressModal = ({
+  open,
+  onClose,
+  bookId,
+  currentProgress,
+  onProgressUpdate,
+}) => {
   const [newProgress, setNewProgress] = useState(currentProgress || 0);
+  const { updateProgress } = useProgress(onProgressUpdate);
 
   const handleSubmit = () => {
-    if (newProgress < 0 || newProgress > 100) {
-      alert("Progress must be between 0 and 100%");
-      return;
-    }
-
-    const progressValue = newProgress;
-    const token = localStorage.getItem("jwtToken");
-
-    axios
-      .put(`http://localhost:8080/api/books/${bookId}/progress`, progressValue, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log("Progress updated:", response.data);
-        onProgressUpdate(bookId, progressValue); // Update progress in state
-        onClose();
-      })
-      .catch((error) => {
-        console.warn("Error updating progress: " + (error.response ? error.response.data : error.message));
-      });
+    updateProgress(bookId, newProgress, onClose);
   };
 
   return (
-    <Modal open={open} onClose={onClose} aria-labelledby="update-progress-modal">
+    <Modal
+      open={open}
+      onClose={onClose}
+      aria-labelledby="update-progress-modal"
+    >
       <Box
         sx={{
           width: 400,
@@ -42,7 +31,7 @@ const ProgressModal = ({ open, onClose, bookId, currentProgress, onProgressUpdat
           borderRadius: 2,
           boxShadow: 3,
           position: "absolute",
-          top: "10%",
+          top: "30%",
           left: "50%",
           transform: "translateX(-50%)",
         }}
@@ -50,19 +39,21 @@ const ProgressModal = ({ open, onClose, bookId, currentProgress, onProgressUpdat
         <Typography variant="h6" gutterBottom>
           Update Progress
         </Typography>
-        <TextField
-          fullWidth
-          type="number"
-        //   label="Progress (%)"
+        <Slider
           value={newProgress}
           onChange={(e) => {
             const value = Number(e.target.value);
-            if (!isNaN(value) && value >= 0 && value <= 100) {
-              setNewProgress(value);
-            }
+            setNewProgress(value);
           }}
+          min={0}
+          max={100}
+          step={1}
+          valueLabelDisplay="auto"
+          valueLabelFormat={(value) => `${value}%`}
         />
-        <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end", gap: 1 }}>
+        <Box
+          sx={{ mt: 2, display: "flex", justifyContent: "flex-end", gap: 1 }}
+        >
           <Button variant="contained" onClick={handleSubmit}>
             Save
           </Button>

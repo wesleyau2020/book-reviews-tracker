@@ -30,14 +30,10 @@ public class BookClient {
                 return;
             }
 
-            Optional<Category> cOptional = categoryService.getCategoryById(2L);
-
-            if (cOptional.isEmpty()) {
-                System.out.println("Category with ID 2 not found. Skipping book creation.");
-                return;
-            }
-
-            Category nonfictionCategory = cOptional.get();
+            // Create 'Non-Fiction' category
+            Category newCategory = new Category();
+            newCategory.setName("Non-Fiction");
+            Category nonfictionCategory = categoryService.saveCategory(newCategory);
 
             // Mock Book 1
             Book mockBook1 = new Book();

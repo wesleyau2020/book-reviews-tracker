@@ -16,11 +16,7 @@ import { styled } from "@mui/material/styles";
 import ForgotPassword from "./components/ForgotPassword";
 import AppTheme from "../shared-theme/AppTheme";
 import ColorModeSelect from "../shared-theme/ColorModeSelect";
-import {
-  GoogleIcon,
-  FacebookIcon,
-  SitemarkIcon,
-} from "./components/CustomIcons";
+import { GoogleIcon, FacebookIcon } from "./components/CustomIcons";
 
 //
 import { useNavigate } from "react-router-dom";
@@ -95,7 +91,7 @@ export default function SignIn(props) {
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
-    console.log({ email, password });
+    // console.log({ email, password });
 
     axios
       .post("http://localhost:8080/auth/login", {

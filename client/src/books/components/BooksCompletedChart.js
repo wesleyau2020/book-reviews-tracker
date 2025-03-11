@@ -1,10 +1,12 @@
-// BooksCompletedChart.js
 import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
+import { Alert, CircularProgress } from "@mui/material";
 import axios from "axios";
 
-const BooksCompletedChart = () => {
+const BooksCompletedChart = (books) => {
   const [chartData, setChartData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
@@ -38,14 +40,22 @@ const BooksCompletedChart = () => {
           data: data[category],
         }));
 
+        setLoading(false);
         setChartData({ months, series });
       })
       .catch((error) => {
-        console.error("Error fetching chart data:", error);
+        setLoading(false);
+        setError(error.message);
+        console.error("Error fetching chart:", error);
       });
-  }, []);
+  }, [books]);
 
-  if (!chartData) return <div>Loading chart...</div>;
+  if (loading) return <CircularProgress />;
+  if (error) {
+    return (
+      <Alert severity="error">Error! Please contact system administrator</Alert>
+    );
+  }
 
   const option = {
     title: {

@@ -5,10 +5,12 @@ A full-stack application built with React (frontend) and Spring (backend) to man
 ## Screenshots
 
 ![Screenshot 1](screenshots/signin.png)
-![Screenshot 2](screenshots/books-light.png)
+![Screenshot 2](screenshots/books.png)
 ![Screenshot 3](screenshots/update-review.png)
+![Screenshot 4](screenshots/update-progress.png)
+![Screenshot 5](screenshots/timer.png)
 
 ## Future Enhancements
 
-- **User Authentication**: Add user login and registration.
+- **User Authentication**: Add user logout and registration.
 - **Testing**: Add unit and integration tests.
