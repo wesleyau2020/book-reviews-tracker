@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 
-const ProgressModal = ({ open, onClose, bookId, currentProgress, onProgressUpdate }) => {
+const ProgressModal = ({
+  open,
+  onClose,
+  bookId,
+  currentProgress,
+  onProgressUpdate,
+}) => {
   const [newProgress, setNewProgress] = useState(currentProgress || 0);
 
   const handleSubmit = () => {
@@ -15,24 +21,35 @@ const ProgressModal = ({ open, onClose, bookId, currentProgress, onProgressUpdat
     const token = localStorage.getItem("jwtToken");
 
     axios
-      .put(`http://localhost:8080/api/books/${bookId}/progress`, progressValue, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+      .put(
+        `http://localhost:8080/api/books/${bookId}/progress`,
+        progressValue,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         },
-      })
+      )
       .then((response) => {
         console.log("Progress updated:", response.data);
-        onProgressUpdate(bookId, progressValue); // Update progress in state
+        onProgressUpdate(bookId, progressValue);
         onClose();
       })
       .catch((error) => {
-        console.warn("Error updating progress: " + (error.response ? error.response.data : error.message));
+        console.warn(
+          "Error updating progress: " +
+            (error.response ? error.response.data : error.message),
+        );
       });
   };
 
   return (
-    <Modal open={open} onClose={onClose} aria-labelledby="update-progress-modal">
+    <Modal
+      open={open}
+      onClose={onClose}
+      aria-labelledby="update-progress-modal"
+    >
       <Box
         sx={{
           width: 400,
@@ -53,7 +70,7 @@ const ProgressModal = ({ open, onClose, bookId, currentProgress, onProgressUpdat
         <TextField
           fullWidth
           type="number"
-        //   label="Progress (%)"
+          //   label="Progress (%)"
           value={newProgress}
           onChange={(e) => {
             const value = Number(e.target.value);
@@ -62,7 +79,9 @@ const ProgressModal = ({ open, onClose, bookId, currentProgress, onProgressUpdat
             }
           }}
         />
-        <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end", gap: 1 }}>
+        <Box
+          sx={{ mt: 2, display: "flex", justifyContent: "flex-end", gap: 1 }}
+        >
           <Button variant="contained" onClick={handleSubmit}>
             Save
           </Button>

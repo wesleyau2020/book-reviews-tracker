@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, useTheme } from "@mui/material";
+import { Button } from "@mui/material";
 import ProgressCell from "./ProgressCell";
 
 const BookTable = ({ books, onAddReview }) => {
-  const theme = useTheme();
   const [bookData, setBookData] = useState(books);
+  
+  useEffect(() => {
+    setBookData(books);
+  }, [books]);
 
   const handleUpdateProgress = (id, newValue) => {
     setBookData((prevBooks) =>
@@ -63,7 +66,7 @@ const BookTable = ({ books, onAddReview }) => {
       <DataGrid
         rows={bookData}
         columns={columns}
-        pageSize={5}
+        pageSizeOptions={[5, 10, 20]}
         rowsPerPageOptions={[5, 10, 20]}
         disableSelectionOnClick
         autoHeight
