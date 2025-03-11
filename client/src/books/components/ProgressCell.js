@@ -19,7 +19,11 @@ const ProgressCell = ({ params, onUpdate }) => {
             width: "100%",
           }}
         >
-          <LinearProgress variant="determinate" value={params.value} sx={{ width: "100%" }} />
+          <LinearProgress
+            variant="determinate"
+            value={params.value}
+            sx={{ width: "100%" }}
+          />
         </div>
       </Tooltip>
 

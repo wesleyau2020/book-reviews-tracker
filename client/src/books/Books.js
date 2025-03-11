@@ -58,12 +58,24 @@ export default function Books(props) {
     setOpenModal(true);
   };
 
-  const handleSubmitReview = () => {
+  const handleSubmitReview = async () => {
+    if (!selectedBook) return;
+
+    let updatedBook = selectedBook;
+
     if (isUpdate) {
-      updateReview(selectedBook.id, newReview, selectedBook.review.id);
+      await updateReview(selectedBook.id, newReview, selectedBook.review.id);
+      updatedBook = { ...selectedBook, review: { content: newReview } };
     } else {
-      addReview(selectedBook.id, newReview);
+      await addReview(selectedBook.id, newReview);
+      updatedBook = { ...selectedBook, review: { content: newReview } };
     }
+
+    setBooks((prevBooks) =>
+      prevBooks.map((book) =>
+        book.id === updatedBook.id ? updatedBook : book,
+      ),
+    );
 
     setNewReview("");
     setOpenModal(false);
@@ -79,7 +91,7 @@ export default function Books(props) {
           <Stack spacing={2} sx={{ mx: 3, pb: 5, mt: { xs: 8, md: 0 } }}>
             <Header />
             <Alert severity="error">
-              You Have Not Acheived Your Reading Goals!
+              You Have Not Achieved Your Reading Goals!
             </Alert>
             <Card variant="outlined" sx={{ width: "100%" }}>
               <CardContent>

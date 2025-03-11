@@ -14,6 +14,7 @@ const ReviewModal = ({
       alert("Please enter a review!");
       return;
     }
+
     onSubmit(bookId, newReview);
     setNewReview("");
     onClose();
