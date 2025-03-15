@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import { Modal, Box, Typography, Button, Slider } from "@mui/material";
 
 const ProgressModal = ({
   open,
@@ -29,7 +29,7 @@ const ProgressModal = ({
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        },
+        }
       )
       .then((response) => {
         console.log("Progress updated:", response.data);
@@ -39,7 +39,7 @@ const ProgressModal = ({
       .catch((error) => {
         console.warn(
           "Error updating progress: " +
-            (error.response ? error.response.data : error.message),
+            (error.response ? error.response.data : error.message)
         );
       });
   };
@@ -67,17 +67,17 @@ const ProgressModal = ({
         <Typography variant="h6" gutterBottom>
           Update Progress
         </Typography>
-        <TextField
-          fullWidth
-          type="number"
-          //   label="Progress (%)"
+        <Slider
           value={newProgress}
           onChange={(e) => {
             const value = Number(e.target.value);
-            if (!isNaN(value) && value >= 0 && value <= 100) {
-              setNewProgress(value);
-            }
+            setNewProgress(value);
           }}
+          min={0}
+          max={100}
+          step={1}
+          valueLabelDisplay="auto"
+          valueLabelFormat={(value) => `${value}%`}
         />
         <Box
           sx={{ mt: 2, display: "flex", justifyContent: "flex-end", gap: 1 }}

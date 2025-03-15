@@ -3,18 +3,12 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import ProgressCell from "./ProgressCell";
 
-const BookTable = ({ books, onAddReview }) => {
-  const [bookData, setBookData] = useState(books);
-  
-  useEffect(() => {
-    setBookData(books);
-  }, [books]);
-
+const BookTable = ({ books, onAddReview, setBooks }) => {
   const handleUpdateProgress = (id, newValue) => {
-    setBookData((prevBooks) =>
+    setBooks((prevBooks) =>
       prevBooks.map((book) =>
-        book.id === id ? { ...book, progress: newValue } : book,
-      ),
+        book.id === id ? { ...book, progress: newValue } : book
+      )
     );
   };
 
@@ -64,7 +58,7 @@ const BookTable = ({ books, onAddReview }) => {
   return (
     <div>
       <DataGrid
-        rows={bookData}
+        rows={books}
         columns={columns}
         pageSizeOptions={[5, 10, 20]}
         rowsPerPageOptions={[5, 10, 20]}
@@ -78,7 +72,10 @@ const BookTable = ({ books, onAddReview }) => {
         }}
         sx={{
           "& .MuiTablePagination-displayedRows": {
-            marginBottom: 0,
+            display: "none",
+          },
+          "& .MuiTablePagination-selectLabel": {
+            display: "none",
           },
         }}
       />

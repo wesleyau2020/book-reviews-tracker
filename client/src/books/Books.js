@@ -1,19 +1,19 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import {
-  Typography,
   Box,
   Stack,
   CssBaseline,
   Card,
   CardContent,
-  Alert,
+  CircularProgress,
 } from "@mui/material";
 
 // Components
 import BookTable from "./components/BookTable";
 import ReviewModal from "./components/ReviewModal";
 import BooksCompletedChart from "./components/BooksCompletedChart";
+import ReadingGoalChecker from "./components/ReadingGoalChecker";
 import { useReviews } from "./hooks/useReviews";
 import AppNavbar from "../dashboard/components/AppNavbar";
 import Header from "../dashboard/components/Header";
@@ -26,7 +26,7 @@ export default function Books(props) {
   const [selectedBook, setSelectedBook] = useState(null);
   const [isUpdate, setIsUpdate] = useState(false);
   const [newReview, setNewReview] = useState("");
-  const { reviews, addReview, updateReview } = useReviews();
+  const { addReview, updateReview } = useReviews();
   const [openModal, setOpenModal] = useState(false);
   const [error, setError] = useState(null);
 
@@ -51,7 +51,6 @@ export default function Books(props) {
       });
   }, []);
 
-  // Handle adding a new review
   const handleAddReview = (book, isUpdate) => {
     setSelectedBook(book);
     setIsUpdate(isUpdate);
@@ -72,9 +71,7 @@ export default function Books(props) {
     }
 
     setBooks((prevBooks) =>
-      prevBooks.map((book) =>
-        book.id === updatedBook.id ? updatedBook : book,
-      ),
+      prevBooks.map((book) => (book.id === updatedBook.id ? updatedBook : book))
     );
 
     setNewReview("");
@@ -90,12 +87,13 @@ export default function Books(props) {
         <Box component="main" sx={{ flexGrow: 1, overflow: "auto" }}>
           <Stack spacing={2} sx={{ mx: 3, pb: 5, mt: { xs: 8, md: 0 } }}>
             <Header />
-            <Alert severity="error">
-              You Have Not Achieved Your Reading Goals!
-            </Alert>
+            <ReadingGoalChecker />
             <Card variant="outlined" sx={{ width: "100%" }}>
               <CardContent>
-                <BooksCompletedChart sx={{ height: "100%", width: "100%" }} />
+                <BooksCompletedChart
+                  books={books}
+                  sx={{ height: "100%", width: "100%" }}
+                />
               </CardContent>
             </Card>
             <Card
@@ -103,11 +101,14 @@ export default function Books(props) {
               sx={{ width: "100%", padding: loading || error ? 2 : 0 }}
             >
               <CardContent>
-                {(loading || error) && (
-                  <Typography variant="body1">Loading table...</Typography>
-                )}
-                {!loading && !error && (
-                  <BookTable books={books} onAddReview={handleAddReview} />
+                {loading || error ? (
+                  <CircularProgress />
+                ) : (
+                  <BookTable
+                    books={books}
+                    onAddReview={handleAddReview}
+                    setBooks={setBooks}
+                  />
                 )}
               </CardContent>
             </Card>

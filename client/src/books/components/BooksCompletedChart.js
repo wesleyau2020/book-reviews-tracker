@@ -1,9 +1,10 @@
 // BooksCompletedChart.js
 import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
+import { CircularProgress } from "@mui/material";
 import axios from "axios";
 
-const BooksCompletedChart = () => {
+const BooksCompletedChart = (books) => {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
@@ -43,9 +44,9 @@ const BooksCompletedChart = () => {
       .catch((error) => {
         console.error("Error fetching chart data:", error);
       });
-  }, []);
+  }, [books]);
 
-  if (!chartData) return <div>Loading chart...</div>;
+  if (!chartData) return <CircularProgress />;
 
   const option = {
     title: {

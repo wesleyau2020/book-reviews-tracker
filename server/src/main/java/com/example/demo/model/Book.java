@@ -1,9 +1,8 @@
 package com.example.demo.model;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-// import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -31,6 +30,8 @@ public class Book {
     @JoinColumn(name = "category_id", nullable = false)
     @JsonBackReference
     private Category category;
+
+    private LocalDate completionDate;
 
     // No-argument constructor
     public Book() {
@@ -84,5 +85,23 @@ public class Book {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void updateCompletionDate() {
+        if (this.progress == 100) {
+            this.completionDate = LocalDate.now();
+        } else {
+            this.completionDate = null;
+        }
+    }
+
+    public LocalDate getCompletionDate() {
+        return completionDate;
+    }
+
+    public void setCompletionDate(LocalDate completionDate) {
+        this.completionDate = completionDate;
     }
 }

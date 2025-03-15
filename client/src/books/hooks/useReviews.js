@@ -22,13 +22,15 @@ export const useReviews = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        },
+        }
       );
 
       return response.data; // Return new review so Books.js can update state
     } catch (error) {
       setError(
-        `Error adding review: ${error.response ? error.response.data : error.message}`,
+        `Error adding review: ${
+          error.response ? error.response.data : error.message
+        }`
       );
       return null;
     }
@@ -52,17 +54,19 @@ export const useReviews = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        },
+        }
       );
 
       return response.data; // Return updated review so Books.js can update state
     } catch (error) {
       setError(
-        `Error updating review: ${error.response ? error.response.data : error.message}`,
+        `Error updating review: ${
+          error.response ? error.response.data : error.message
+        }`
       );
       return null;
     }
   };
 
-  return { error, addReview, updateReview };
+  return { addReview, updateReview };
 };

@@ -9,13 +9,14 @@ const ProgressCell = ({ params, onUpdate }) => {
     <>
       <Tooltip title={`${params.value}%`} arrow>
         <div
-          onDoubleClick={() => setOpen(true)}
+          // Enable double-click if value is less than 100%
+          onDoubleClick={params.value !== 100 ? () => setOpen(true) : null}
           style={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             height: "100%",
-            cursor: "pointer",
+            cursor: params.value === 100 ? "not-allowed" : "pointer",
             width: "100%",
           }}
         >
