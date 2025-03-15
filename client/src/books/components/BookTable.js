@@ -1,20 +1,49 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import ProgressCell from "./ProgressCell";
+import ReviewModal from "./ReviewModal";
+import { useReviews } from "../hooks/useReviews";
 
-const BookTable = ({ books, onAddReview }) => {
-  const [bookData, setBookData] = useState(books);
-  
-  useEffect(() => {
-    setBookData(books);
-  }, [books]);
+const BookTable = ({ books, setBooks }) => {
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [newReview, setNewReview] = useState("");
+  const { addReview, updateReview } = useReviews();
+  const [openModal, setOpenModal] = useState(false);
+
+  const onAddReview = (book, isUpdate) => {
+    setSelectedBook(book);
+    setIsUpdate(isUpdate);
+    setOpenModal(true);
+  };
+
+  const handleSubmitReview = async () => {
+    if (!selectedBook) return;
+
+    let updatedBook = selectedBook;
+
+    if (isUpdate) {
+      await updateReview(selectedBook.id, newReview, selectedBook.review.id);
+      updatedBook = { ...selectedBook, review: { content: newReview } };
+    } else {
+      await addReview(selectedBook.id, newReview);
+      updatedBook = { ...selectedBook, review: { content: newReview } };
+    }
+
+    setBooks((prevBooks) =>
+      prevBooks.map((book) => (book.id === updatedBook.id ? updatedBook : book))
+    );
+
+    setNewReview("");
+    setOpenModal(false);
+  };
 
   const handleUpdateProgress = (id, newValue) => {
-    setBookData((prevBooks) =>
+    setBooks((prevBooks) =>
       prevBooks.map((book) =>
-        book.id === id ? { ...book, progress: newValue } : book,
-      ),
+        book.id === id ? { ...book, progress: newValue } : book
+      )
     );
   };
 
@@ -52,7 +81,7 @@ const BookTable = ({ books, onAddReview }) => {
             variant="contained"
             size="small"
             sx={{ ml: 1 }}
-            onClick={() => onAddReview(book, Boolean(book.review))}
+            onClick={() => onAddReview(book, book.review)}
           >
             {book.review ? "Update Review" : "Add Review"}
           </Button>
@@ -64,7 +93,7 @@ const BookTable = ({ books, onAddReview }) => {
   return (
     <div>
       <DataGrid
-        rows={bookData}
+        rows={books}
         columns={columns}
         pageSizeOptions={[5, 10, 20]}
         rowsPerPageOptions={[5, 10, 20]}
@@ -78,9 +107,22 @@ const BookTable = ({ books, onAddReview }) => {
         }}
         sx={{
           "& .MuiTablePagination-displayedRows": {
-            marginBottom: 0,
+            display: "none",
+          },
+          "& .MuiTablePagination-selectLabel": {
+            display: "none",
           },
         }}
+      />
+
+      <ReviewModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        onSubmit={handleSubmitReview}
+        selectedBook={selectedBook}
+        newReview={newReview}
+        setNewReview={setNewReview}
+        isUpdate={isUpdate}
       />
     </div>
   );

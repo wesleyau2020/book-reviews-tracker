@@ -5,9 +5,10 @@ const ReviewModal = ({
   open,
   onClose,
   onSubmit,
+  selectedBook,
   newReview,
   setNewReview,
-  bookId,
+  isUpdate,
 }) => {
   const handleSubmit = () => {
     if (newReview.trim() === "") {
@@ -15,7 +16,7 @@ const ReviewModal = ({
       return;
     }
 
-    onSubmit(bookId, newReview);
+    onSubmit();
     setNewReview("");
     onClose();
   };
@@ -42,14 +43,14 @@ const ReviewModal = ({
         }}
       >
         <Typography variant="h6" gutterBottom>
-          Add Review
+          {isUpdate ? "Update Review" : "Add Review"}
         </Typography>
         <TextField
           fullWidth
           // label="Review"
           multiline
           rows={4}
-          value={newReview}
+          value={selectedBook?.review.content ?? ""}
           onChange={(e) => setNewReview(e.target.value)}
           sx={{
             "& .MuiInputBase-root": {

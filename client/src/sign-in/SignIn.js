@@ -95,7 +95,7 @@ export default function SignIn(props) {
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
-    console.log({ email, password });
+    // console.log({ email, password });
 
     axios
       .post("http://localhost:8080/auth/login", {
