@@ -16,11 +16,7 @@ import { styled } from "@mui/material/styles";
 import ForgotPassword from "./components/ForgotPassword";
 import AppTheme from "../shared-theme/AppTheme";
 import ColorModeSelect from "../shared-theme/ColorModeSelect";
-import {
-  GoogleIcon,
-  FacebookIcon,
-  SitemarkIcon,
-} from "./components/CustomIcons";
+import { GoogleIcon, FacebookIcon } from "./components/CustomIcons";
 
 //
 import { useNavigate } from "react-router-dom";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Box, Typography, Button, Slider } from "@mui/material";
+import { Box, Button, Modal, Slider, Typography } from "@mui/material";
 import useProgress from "../hooks/useProgress";
 
 const ProgressModal = ({
@@ -31,7 +31,7 @@ const ProgressModal = ({
           borderRadius: 2,
           boxShadow: 3,
           position: "absolute",
-          top: "10%",
+          top: "30%",
           left: "50%",
           transform: "translateX(-50%)",
         }}

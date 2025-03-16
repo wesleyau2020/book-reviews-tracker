@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Tooltip, LinearProgress } from "@mui/material";
+import { LinearProgress, Tooltip } from "@mui/material";
 import ProgressModal from "./ProgressModal";
 
 const ProgressCell = ({ params, onUpdate }) => {

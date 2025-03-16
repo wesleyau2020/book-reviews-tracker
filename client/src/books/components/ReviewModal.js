@@ -37,7 +37,7 @@ const ReviewModal = ({
           borderRadius: 2,
           boxShadow: 3,
           position: "absolute",
-          top: "10%",
+          top: "30%",
           left: "50%",
           transform: "translateX(-50%)",
         }}
@@ -50,7 +50,7 @@ const ReviewModal = ({
           // label="Review"
           multiline
           rows={4}
-          value={selectedBook?.review.content ?? ""}
+          placeholder={selectedBook?.review.content ?? ""}
           onChange={(e) => setNewReview(e.target.value)}
           sx={{
             "& .MuiInputBase-root": {

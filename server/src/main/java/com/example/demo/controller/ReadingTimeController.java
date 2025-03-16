@@ -41,6 +41,7 @@ public class ReadingTimeController {
 
     @PostMapping
     public ResponseEntity<ReadingTime> saveReadingTime(@RequestBody ReadingTime readingTime) {
+        System.out.println("Received reading time: " + readingTime.getMinutesSpent());
         return ResponseEntity.ok(service.saveReadingTime(readingTime));
     }
 

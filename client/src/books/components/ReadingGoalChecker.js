@@ -35,7 +35,7 @@ const ReadingGoalChecker = () => {
         </Alert>
       ) : (
         <Alert severity="warning" icon={false}>
-          📚 Keep Going! You Have Not Achieved Your Reading Goals!
+          📚 Keep Going! You have not achieved your reading goals!
         </Alert>
       )}
     </div>

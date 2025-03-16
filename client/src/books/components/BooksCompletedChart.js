@@ -1,4 +1,3 @@
-// BooksCompletedChart.js
 import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 import { Alert, CircularProgress } from "@mui/material";

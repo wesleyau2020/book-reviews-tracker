@@ -14,6 +14,7 @@ import {
 import BookTable from "./components/BookTable";
 import BooksCompletedChart from "./components/BooksCompletedChart";
 import ReadingGoalChecker from "./components/ReadingGoalChecker";
+import ReadingTimer from "./components/ReadingTimer";
 import AppNavbar from "../dashboard/components/AppNavbar";
 import Header from "../dashboard/components/Header";
 import SideMenu from "../dashboard/components/SideMenu";
@@ -37,6 +38,7 @@ export default function Books(props) {
       .then((response) => {
         setBooks(response.data);
         setLoading(false);
+        console.log("Books fetched!", response.data);
       })
       .catch((error) => {
         setLoading(false);
@@ -55,6 +57,7 @@ export default function Books(props) {
           <Stack spacing={2} sx={{ mx: 3, pb: 5, mt: { xs: 8, md: 0 } }}>
             <Header />
             <ReadingGoalChecker />
+            <ReadingTimer duration={60 * 15} />
             <Card variant="outlined" sx={{ width: "100%" }}>
               <CardContent>
                 <BooksCompletedChart
