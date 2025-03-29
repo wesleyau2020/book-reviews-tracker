@@ -1,6 +1,7 @@
 import React from "react";
 import { Alert, Card, CardContent, CircularProgress } from "@mui/material";
 import useReadingGoal from "../hooks/useReadingGoal";
+import ErrorAlert from "./ErrorAlert";
 
 const ReadingGoalChecker = () => {
   const { hasAchievedGoal, loading, error } = useReadingGoal();
@@ -19,9 +20,7 @@ const ReadingGoalChecker = () => {
     return (
       <Card variant="outlined" sx={{ width: "100%" }}>
         <CardContent>
-          <Alert severity="error">
-            Error! Please contact system administrator
-          </Alert>
+          <ErrorAlert />
         </CardContent>
       </Card>
     );

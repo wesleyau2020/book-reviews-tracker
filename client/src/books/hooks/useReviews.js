@@ -3,7 +3,7 @@ import axios from "axios";
 export const useReviews = () => {
   const addReview = async (bookId, newReview) => {
     try {
-      const token = localStorage.getItem("jwtToken");
+      const token = localStorage.getItem("token");
       const reviewData = {
         content: newReview,
         reviewerName: "Wesley Au",
@@ -24,7 +24,7 @@ export const useReviews = () => {
 
   const updateReview = async (bookId, updatedReview, reviewId) => {
     try {
-      const token = localStorage.getItem("jwtToken");
+      const token = localStorage.getItem("token");
 
       const reviewData = {
         content: updatedReview,

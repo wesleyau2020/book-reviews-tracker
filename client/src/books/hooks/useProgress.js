@@ -8,7 +8,7 @@ const useProgress = (onProgressUpdate) => {
     }
 
     try {
-      const token = localStorage.getItem("jwtToken");
+      const token = localStorage.getItem("token");
       const response = await axios.put(
         `http://localhost:8080/api/books/${bookId}/progress`,
         newProgress,

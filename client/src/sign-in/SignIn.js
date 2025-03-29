@@ -100,7 +100,7 @@ export default function SignIn(props) {
       })
       .then((response) => {
         const token = response.data.token;
-        localStorage.setItem("jwtToken", token);
+        localStorage.setItem("token", token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         navigate("/home");
       })
