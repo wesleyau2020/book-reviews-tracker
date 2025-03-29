@@ -18,16 +18,18 @@ const ReadingTimer = ({ duration = 60 }) => {
   useEffect(() => {
     let timer;
     if (isRunning && timeLeft > 0) {
+      // Update the timer
       timer = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1);
       }, 1000);
     } else if (timeLeft === 0) {
+      // Handle timer over
       clearInterval(timer);
       sendReadingTime(duration);
       setOpen(false);
     }
     return () => clearInterval(timer);
-  }, [isRunning, timeLeft, duration, sendReadingTime]);
+  }, [isRunning, timeLeft]);
 
   const handleStart = () => {
     if (!isRunning) {

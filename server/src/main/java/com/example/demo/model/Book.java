@@ -35,6 +35,13 @@ public class Book {
 
     // No-argument constructor
     public Book() {
+        // 
+    }
+
+    public Book(String title, String author, int progress) {
+        this.title = title;
+        this.author = author;
+        this.progress = progress;
     }
 
     // Getters and Setters

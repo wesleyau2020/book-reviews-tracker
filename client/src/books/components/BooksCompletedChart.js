@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
-import { Alert, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import ErrorAlert from "./ErrorAlert";
 import axios from "axios";
 
 const BooksCompletedChart = (books) => {
@@ -9,7 +10,7 @@ const BooksCompletedChart = (books) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
+    const token = localStorage.getItem("token");
     axios
       .get("http://localhost:8080/api/statistics/books-completed", {
         headers: {
@@ -51,11 +52,7 @@ const BooksCompletedChart = (books) => {
   }, [books]);
 
   if (loading) return <CircularProgress />;
-  if (error) {
-    return (
-      <Alert severity="error">Error! Please contact system administrator</Alert>
-    );
-  }
+  if (error) return <ErrorAlert />;
 
   const option = {
     title: {

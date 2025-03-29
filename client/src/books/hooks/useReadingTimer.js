@@ -3,7 +3,7 @@ import axios from "axios";
 const useReadingTimer = () => {
   const sendReadingTime = async (readingTime) => {
     try {
-      const token = localStorage.getItem("jwtToken");
+      const token = localStorage.getItem("token");
       const currentDate = new Date().toISOString().split("T")[0];
       const requestBody = {
         date: currentDate,

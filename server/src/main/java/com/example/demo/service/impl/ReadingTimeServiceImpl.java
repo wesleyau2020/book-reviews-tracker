@@ -39,6 +39,19 @@ public class ReadingTimeServiceImpl implements ReadingTimeService {
     }
 
     @Override
+    public ReadingTime saveOrUpdateReadingTime(ReadingTime newReadingTime) {
+        Optional<ReadingTime> existing = repository.findByDate(newReadingTime.getDate());
+
+        if (existing.isPresent()) {
+            ReadingTime current = existing.get();
+            current.setMinutesSpent(current.getMinutesSpent() + newReadingTime.getMinutesSpent());
+            return repository.save(current);
+        } else {
+            return repository.save(newReadingTime);
+        }
+    }
+
+    @Override
     public void deleteReadingTime(Long id) {
         repository.deleteById(id);
     }

@@ -18,8 +18,8 @@ import { useLocation, Link } from "react-router-dom";
 
 const mainListItems = [
   { text: "Home", icon: <HomeRoundedIcon />, link: "/home" },
-  { text: "Analytics", icon: <AnalyticsRoundedIcon />, link: "/analytics" },
-  { text: "Clients", icon: <PeopleRoundedIcon />, link: "/clients" },
+  // { text: "Analytics", icon: <AnalyticsRoundedIcon />, link: "/analytics" },
+  // { text: "Clients", icon: <PeopleRoundedIcon />, link: "/clients" },
   { text: "Books", icon: <LibraryBooksIcon />, link: "/books" },
 ];
 
@@ -32,7 +32,7 @@ const secondaryListItems = [
 export default function MenuContent() {
   const location = useLocation();
   const selectedIndex = mainListItems.findIndex(
-    (item) => location.pathname === item.link,
+    (item) => location.pathname === item.link
   );
 
   return (

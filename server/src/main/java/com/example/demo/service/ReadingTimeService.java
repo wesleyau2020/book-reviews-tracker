@@ -8,9 +8,16 @@ import java.util.Optional;
 
 public interface ReadingTimeService {
     List<ReadingTime> getAllReadingTimes();
+
     Optional<ReadingTime> getReadingTimeById(Long id);
+
     Optional<ReadingTime> getReadingTimeByDate(LocalDate date);
+
     ReadingTime saveReadingTime(ReadingTime readingTime);
+
+    ReadingTime saveOrUpdateReadingTime(ReadingTime readingTime);
+
     void deleteReadingTime(Long id);
+
     boolean hasReadMoreThanOneHourToday();
 }

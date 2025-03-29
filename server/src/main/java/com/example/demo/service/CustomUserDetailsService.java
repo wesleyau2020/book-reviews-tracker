@@ -20,7 +20,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Fetch the user from the repository
         Optional<com.example.demo.model.User> userOptional = userRepository.findByUsername(username);
 
         // If user is not found, throw UsernameNotFoundException
@@ -28,10 +27,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
 
-        // Get the UserEntity object from Optional
         com.example.demo.model.User user = userOptional.get();
 
-        // Convert to Spring Security UserDetails
         return User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())

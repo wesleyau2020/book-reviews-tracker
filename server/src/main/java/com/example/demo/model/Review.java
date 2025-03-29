@@ -13,6 +13,9 @@ public class Review {
     @Column(nullable = false)
     private String content;
 
+    // @Column(nullable = true)
+    // private int rating;
+
     @Column(nullable = false)
     private String reviewerName;
 
@@ -20,6 +23,14 @@ public class Review {
     @JoinColumn(name = "book_id")
     @JsonBackReference
     private Book book;
+
+    // No-argument constructor
+    public Review() {}
+
+    public Review(String content) {
+        this.content = content;
+        // this.rating = rating;
+    }
 
     // Getters and Setters
 

@@ -40,9 +40,10 @@ public class ReadingTimeController {
     }
 
     @PostMapping
-    public ResponseEntity<ReadingTime> saveReadingTime(@RequestBody ReadingTime readingTime) {
+    public ResponseEntity<ReadingTime> saveOrUpdateReadingTime(@RequestBody ReadingTime readingTime) {
         System.out.println("Received reading time: " + readingTime.getMinutesSpent());
-        return ResponseEntity.ok(service.saveReadingTime(readingTime));
+        ReadingTime updated = service.saveOrUpdateReadingTime(readingTime);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")

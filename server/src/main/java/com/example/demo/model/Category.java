@@ -20,6 +20,10 @@ public class Category {
     public Category() {
     }
 
+    public Category(String name) {
+        this.name = name;
+    }
+
     // Getters and Setters
 
     public Long getId() {

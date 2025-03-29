@@ -15,6 +15,7 @@ import BookTable from "./components/BookTable";
 import BooksCompletedChart from "./components/BooksCompletedChart";
 import ReadingGoalChecker from "./components/ReadingGoalChecker";
 import ReadingTimer from "./components/ReadingTimer";
+import ErrorAlert from "./components/ErrorAlert";
 import AppNavbar from "../dashboard/components/AppNavbar";
 import Header from "../dashboard/components/Header";
 import SideMenu from "../dashboard/components/SideMenu";
@@ -27,7 +28,7 @@ export default function Books(props) {
 
   // Fetch books when the component mounts
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
+    const token = localStorage.getItem("token");
     axios
       .get("http://localhost:8080/api/books", {
         headers: {
@@ -74,9 +75,7 @@ export default function Books(props) {
                 {loading ? (
                   <CircularProgress />
                 ) : error ? (
-                  <Alert severity="error">
-                    Error! Please contact system administrator
-                  </Alert>
+                  <ErrorAlert />
                 ) : (
                   <BookTable books={books} setBooks={setBooks} />
                 )}
