@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
-    @Query("SELECT b FROM Book b WHERE b.progress > :progress")
-    List<Book> findBooksReadByUser(int progress);
+    List<Book> findByProgressGreaterThan(int progress);
 }
