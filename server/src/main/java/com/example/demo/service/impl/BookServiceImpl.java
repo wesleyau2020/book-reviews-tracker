@@ -38,6 +38,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getBooksRead(int progress) {
-        return bookRepository.findBooksReadByUser(progress);
+        return bookRepository.findByProgressGreaterThan(progress);
     }
 }
