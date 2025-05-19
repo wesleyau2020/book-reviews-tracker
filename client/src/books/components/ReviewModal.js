@@ -50,7 +50,7 @@ const ReviewModal = ({
           // label="Review"
           multiline
           rows={4}
-          placeholder={selectedBook?.review.content ?? ""}
+          placeholder={selectedBook?.review?.content ?? ""}
           onChange={(e) => setNewReview(e.target.value)}
           sx={{
             "& .MuiInputBase-root": {
