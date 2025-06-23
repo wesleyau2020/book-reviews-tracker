@@ -52,9 +52,7 @@ const BooksCompletedChart = (books) => {
   }, [books]);
 
   if (loading) return <CircularProgress />;
-  if (error) {
-    return <ErrorAlert />;
-  }
+  if (error) return <ErrorAlert />;
 
   const option = {
     title: {

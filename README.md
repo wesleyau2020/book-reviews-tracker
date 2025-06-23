@@ -12,5 +12,5 @@ A full-stack application built with React (frontend) and Spring (backend) to man
 
 ## Future Enhancements
 
-- **User Authentication**: Add user logout and registration.
-- **Testing**: Add unit and integration tests.
+- **User Authentication**: Add user registration.
+- **Testing**: Add integration tests.
