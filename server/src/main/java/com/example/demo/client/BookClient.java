@@ -5,8 +5,6 @@ import com.example.demo.model.Category;
 import com.example.demo.service.BookService;
 import com.example.demo.service.CategoryService;
 
-import java.util.Optional;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;

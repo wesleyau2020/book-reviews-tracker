@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Book;
 import com.example.demo.model.Review;
+import com.example.demo.service.BookProgressScheduler;
 import com.example.demo.service.BookService;
 import com.example.demo.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class BookController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private BookProgressScheduler bookProgressScheduler;
 
     @GetMapping
     public List<Book> getAllBooks() {
@@ -39,6 +43,12 @@ public class BookController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(review);
+    }
+
+    @GetMapping("/print-ongoing")
+    public ResponseEntity<String> triggerScheduleEmailJobs() {
+        bookProgressScheduler.scheduleEmailJobs();
+        return ResponseEntity.ok("Triggered scheduleEmailJobs!");
     }
 
     @PostMapping

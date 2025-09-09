@@ -1,11 +1,13 @@
 package com.example.demo.model;
 
+import java.io.Serializable;
 import java.util.List;
-
 import jakarta.persistence.*;
 
 @Entity
-public class Category {
+public class Category implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

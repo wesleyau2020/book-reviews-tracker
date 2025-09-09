@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -8,7 +9,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
-public class Book {
+public class Book implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,7 +38,7 @@ public class Book {
 
     // No-argument constructor
     public Book() {
-        // 
+        //
     }
 
     public Book(String title, String author, int progress) {
@@ -110,5 +113,18 @@ public class Book {
 
     public void setCompletionDate(LocalDate completionDate) {
         this.completionDate = completionDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", progress=" + progress +
+                ", completionDate=" + completionDate +
+                ", category=" + (category != null ? category.getName() : "null") +
+                ", review=" + (review != null ? review.getContent() : "null") +
+                '}';
     }
 }

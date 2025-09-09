@@ -4,7 +4,6 @@ import com.example.demo.model.Book;
 import com.example.demo.model.Category;
 import com.example.demo.service.BookService;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,8 +31,6 @@ class StatisticsControllerTest {
 
     @InjectMocks
     private StatisticsController statisticsController;
-
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeEach
     void setUp() {
@@ -68,10 +65,10 @@ class StatisticsControllerTest {
         mockMvc.perform(get("/api/statistics/books-completed")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.Fiction[2]").value(1))  // March: 1 book completed in Fiction
-                .andExpect(jsonPath("$.Fiction[1]").value(1))  // February: 1 book completed in Fiction
+                .andExpect(jsonPath("$.Fiction[2]").value(1)) // March: 1 book completed in Fiction
+                .andExpect(jsonPath("$.Fiction[1]").value(1)) // February: 1 book completed in Fiction
                 .andExpect(jsonPath("$.Non-fiction[2]").value(1)) // March: 1 book completed in Non-fiction
                 .andExpect(jsonPath("$.Non-fiction[0]").value(0)); // January: No books completed in Non-fiction
-                // .andExpect(jsonPath("$.Unknown[0]").value(0));
+        // .andExpect(jsonPath("$.Unknown[0]").value(0));
     }
 }

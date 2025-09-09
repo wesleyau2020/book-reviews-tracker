@@ -1,0 +1,34 @@
+# Application name
+spring.application.name=demo-application
+
+# JWT config
+jwt.secret=<SECRET>
+jwt.expiration-time=3600000
+
+# Server
+server.port=8072
+spring.application.name=book-reviews-tracker
+
+# MySQL database connection
+spring.datasource.url=jdbc:mysql://localhost:3306/bookreviewsdb?useSSL=false&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Hibernate / JPA settings
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+# RabbitMQ
+spring.rabbitmq.host=localhost
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=guest
+spring.rabbitmq.password=guest
+
+# Redis
+spring.redis.host=localhost
+spring.redis.port=6379
+
+# Spring Actuator
+management.endpoints.web.exposure.include=health,info
